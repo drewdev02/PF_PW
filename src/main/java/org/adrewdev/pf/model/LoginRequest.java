@@ -1,12 +1,15 @@
 package org.adrewdev.pf.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-public class Trabajador {
-    private String nombre;
-    private String carneIdentidad;
-    private String direccion;
+@AllArgsConstructor
+@NoArgsConstructor
+public class LoginRequest {
+    private String username;
+    private String password;
 }
