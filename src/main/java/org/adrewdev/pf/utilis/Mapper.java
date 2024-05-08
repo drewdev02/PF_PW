@@ -3,6 +3,8 @@ package org.adrewdev.pf.utilis;
 import org.adrewdev.pf.entity.Trabajador;
 import org.adrewdev.pf.entity.TrabajadorDocente;
 import org.adrewdev.pf.entity.TrabajadorNoDocente;
+import org.adrewdev.pf.entity.Usuario;
+import org.adrewdev.pf.model.LoginRequest;
 import org.adrewdev.pf.model.TrabajadorDocenteRequest;
 import org.adrewdev.pf.model.TrabajadorNoDocenteRequest;
 import org.adrewdev.pf.model.TrabajadorRequest;
@@ -37,6 +39,41 @@ public class Mapper {
                 .nombre(request.getNombre())
                 .carneIdentidad(request.getCarneIdentidad())
                 .direccion(request.getDireccion())
+                .build();
+    }
+
+    public static TrabajadorRequest map(Trabajador trabajador) {
+        return new TrabajadorRequest(
+                trabajador.getNombre(),
+                trabajador.getCarneIdentidad(),
+                trabajador.getDireccion()
+        );
+    }
+
+    public static TrabajadorDocenteRequest map(TrabajadorDocente trabajador) {
+        return new TrabajadorDocenteRequest(
+                trabajador.getNombre(),
+                trabajador.getCarneIdentidad(),
+                trabajador.getDireccion(),
+                trabajador.getCategoriaDocente(),
+                trabajador.getCategoriaCientifica()
+        );
+    }
+
+    public static TrabajadorNoDocenteRequest map(TrabajadorNoDocente trabajador) {
+        return new TrabajadorNoDocenteRequest(
+                trabajador.getNombre(),
+                trabajador.getCarneIdentidad(),
+                trabajador.getDireccion(),
+                trabajador.getNivelEscolaridad(),
+                trabajador.getOcupacion()
+        );
+    }
+
+    public static Usuario map(LoginRequest user) {
+        return Usuario.builder()
+                .username(user.getUsername())
+                .password(user.getPassword())
                 .build();
     }
 

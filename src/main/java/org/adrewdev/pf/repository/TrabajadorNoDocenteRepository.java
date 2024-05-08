@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TrabajadorNoDocenteRepository extends JpaRepository<TrabajadorNoDocente, Long> {
+    void deleteByCarneIdentidad(String ci);
 }
