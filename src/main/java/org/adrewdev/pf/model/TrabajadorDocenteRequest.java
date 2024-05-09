@@ -1,8 +1,6 @@
 package org.adrewdev.pf.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @Setter

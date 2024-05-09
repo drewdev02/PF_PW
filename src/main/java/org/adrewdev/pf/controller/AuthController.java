@@ -6,15 +6,13 @@ import org.adrewdev.pf.model.LoginRequest;
 import org.adrewdev.pf.model.TrabajadorRequest;
 import org.adrewdev.pf.service.AuthService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:5173")
 public class AuthController {
 
     private final AuthService authService;
@@ -32,6 +30,7 @@ public class AuthController {
 
     @PostMapping("/user")
     public ResponseEntity<?> createUser(@RequestBody LoginRequest loginRequest) {
+        log.info("Creando usuario: {}", loginRequest);
         try {
             authService.createUser(loginRequest);
             return ResponseEntity.ok("Usuario creado exitosamente");

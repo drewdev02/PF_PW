@@ -8,8 +8,11 @@ import org.adrewdev.pf.model.LoginRequest;
 import org.adrewdev.pf.model.TrabajadorDocenteRequest;
 import org.adrewdev.pf.model.TrabajadorNoDocenteRequest;
 import org.adrewdev.pf.model.TrabajadorRequest;
+import org.modelmapper.ModelMapper;
 
 public class Mapper {
+    private static final ModelMapper modelMapper = new ModelMapper();
+
     private Mapper() {
     }
 
@@ -71,10 +74,7 @@ public class Mapper {
     }
 
     public static Usuario map(LoginRequest user) {
-        return Usuario.builder()
-                .username(user.getUsername())
-                .password(user.getPassword())
-                .build();
+        return modelMapper.map(user, Usuario.class);
     }
 
 
