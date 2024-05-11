@@ -4,10 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.adrewdev.pf.service.TrabajadoresService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -46,6 +43,17 @@ public class TrabajadoresController {
             return ResponseEntity.ok(list);
         } catch (Exception e) {
             log.error("Error al obtener trabajadores no docentes", e);
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteTrabajador(@PathVariable Long id) {
+        try {
+            trabajadoresService.deleteTrabajador(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            log.error("Error al eliminar trabajador", e);
             return ResponseEntity.badRequest().build();
         }
     }

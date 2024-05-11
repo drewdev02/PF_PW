@@ -71,4 +71,12 @@ public class TrabajadoresService {
                 })
                 .toList();
     }
+
+    public void deleteTrabajador(Long id) {
+        try {
+            trabajadorRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Error al eliminar trabajador; id: " + id);
+        }
+    }
 }
