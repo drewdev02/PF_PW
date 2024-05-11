@@ -1,28 +1,31 @@
 package org.adrewdev.pf.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.List;
 
 
 @Entity
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
-@Builder
-public class TrabajadorDocente {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String nombre;
-    private String carneIdentidad;
-    private String direccion;
+@AllArgsConstructor
+@ToString
+public class TrabajadorDocente extends Trabajador {
     private String categoriaDocente;
     private String categoriaCientifica;
 
+    public TrabajadorDocente(
+            Long id,
+            String nombre,
+            String carneIdentidad,
+            List<Direccion> direccion,
+            String categoriaCientifica,
+            String categoriaDocente
+    ) {
+        super(id, nombre, carneIdentidad, direccion);
+        this.categoriaCientifica = categoriaCientifica;
+        this.categoriaDocente = categoriaDocente;
+    }
 }

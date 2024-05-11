@@ -17,60 +17,27 @@ public class Mapper {
     }
 
     public static TrabajadorDocente map(TrabajadorDocenteRequest request) {
-        return TrabajadorDocente.builder()
-                .nombre(request.getNombre())
-                .carneIdentidad(request.getCarneIdentidad())
-                .direccion(request.getDireccion())
-                .categoriaDocente(request.getCategoriaDocente())
-                .categoriaCientifica(request.getCategoriaCientifica())
-                .build();
-
+        return modelMapper.map(request, TrabajadorDocente.class);
     }
 
     public static TrabajadorNoDocente map(TrabajadorNoDocenteRequest request) {
-        return TrabajadorNoDocente.builder()
-                .nombre(request.getNombre())
-                .carneIdentidad(request.getCarneIdentidad())
-                .direccion(request.getDireccion())
-                .nivelEscolaridad(request.getNivelEscolaridad())
-                .ocupacion(request.getOcupacion())
-                .build();
+        return modelMapper.map(request, TrabajadorNoDocente.class);
     }
 
     public static Trabajador map(TrabajadorRequest request) {
-        return Trabajador.builder()
-                .nombre(request.getNombre())
-                .carneIdentidad(request.getCarneIdentidad())
-                .direccion(request.getDireccion())
-                .build();
+        return modelMapper.map(request, Trabajador.class);
     }
 
     public static TrabajadorRequest map(Trabajador trabajador) {
-        return new TrabajadorRequest(
-                trabajador.getNombre(),
-                trabajador.getCarneIdentidad(),
-                trabajador.getDireccion()
-        );
+        return modelMapper.map(trabajador, TrabajadorRequest.class);
     }
 
     public static TrabajadorDocenteRequest map(TrabajadorDocente trabajador) {
-        return new TrabajadorDocenteRequest(
-                trabajador.getNombre(),
-                trabajador.getCarneIdentidad(),
-                trabajador.getDireccion(),
-                trabajador.getCategoriaDocente(),
-                trabajador.getCategoriaCientifica()
-        );
+        return modelMapper.map(trabajador, TrabajadorDocenteRequest.class);
     }
 
     public static TrabajadorNoDocenteRequest map(TrabajadorNoDocente trabajador) {
-        return new TrabajadorNoDocenteRequest(
-                trabajador.getNombre(),
-                trabajador.getCarneIdentidad(),
-                trabajador.getDireccion(),
-                trabajador.getNivelEscolaridad(),
-                trabajador.getOcupacion()
-        );
+        return modelMapper.map(trabajador, TrabajadorNoDocenteRequest.class);
     }
 
     public static Usuario map(LoginRequest user) {

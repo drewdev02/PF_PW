@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
@@ -18,9 +20,9 @@ import lombok.ToString;
 public class TrabajadorRequest {
     private String nombre;
     private String carneIdentidad;
-    private String direccion;
+    private List<DireccionRequest> direccion;
 
-    public TrabajadorRequest(String nombre, String carneIdentidad, String direccion) {
+    public TrabajadorRequest(String nombre, String carneIdentidad, List<DireccionRequest> direccion) {
         this.nombre = nombre;
         this.carneIdentidad = carneIdentidad;
         this.direccion = direccion;

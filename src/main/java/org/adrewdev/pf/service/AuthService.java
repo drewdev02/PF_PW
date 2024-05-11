@@ -3,41 +3,68 @@ package org.adrewdev.pf.service;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.adrewdev.pf.entity.Direccion;
 import org.adrewdev.pf.model.LoginRequest;
 import org.adrewdev.pf.model.TrabajadorDocenteRequest;
 import org.adrewdev.pf.model.TrabajadorNoDocenteRequest;
 import org.adrewdev.pf.model.TrabajadorRequest;
-import org.adrewdev.pf.repository.TrabajadorDocenteRepository;
-import org.adrewdev.pf.repository.TrabajadorNoDocenteRepository;
-import org.adrewdev.pf.repository.TrabajadorRepository;
-import org.adrewdev.pf.repository.UsuarioRepository;
+import org.adrewdev.pf.repository.*;
 import org.adrewdev.pf.utilis.Mapper;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
 @AllArgsConstructor
 public class AuthService {
+
+    private final UsuarioRepository usuarioRepository;
+    private final DireccionRepository direccionRepository;
     private final TrabajadorRepository trabajadorRepository;
     private final TrabajadorDocenteRepository trabajadorDocenteRepository;
     private final TrabajadorNoDocenteRepository trabajadorNoDocenteRepository;
-    private final UsuarioRepository usuarioRepository;
 
 
     public void registerUser(TrabajadorRequest request) throws RuntimeException {
         try {
+            var direccion = Optional.ofNullable(request.getDireccion())
+                    .orElse(List.of())
+                    .stream()
+                    .map(d -> new ModelMapper().map(d, Direccion.class))
+                    .toList();
+
             if (request instanceof TrabajadorDocenteRequest) {
                 var entity = Mapper.map((TrabajadorDocenteRequest) request);
+                var direcciones = direccion.stream().map(d -> {
+                    d.setTrabajador(entity);
+                    return d;
+                }).toList();
+                entity.setDirecciones(direcciones);
                 trabajadorDocenteRepository.save(entity);
+                direccionRepository.saveAll(direccion);
 
             } else if (request instanceof TrabajadorNoDocenteRequest) {
-
                 var entity = Mapper.map((TrabajadorNoDocenteRequest) request);
+                var direcciones = direccion.stream().map(d -> {
+                    d.setTrabajador(entity);
+                    return d;
+                }).toList();
+                entity.setDirecciones(direcciones);
                 trabajadorNoDocenteRepository.save(entity);
-            } else {
+                direccionRepository.saveAll(direccion);
 
+            } else {
                 var entity = Mapper.map(request);
+                var direcciones = direccion.stream().map(d -> {
+                    d.setTrabajador(entity);
+                    return d;
+                }).toList();
+                entity.setDirecciones(direcciones);
                 trabajadorRepository.save(entity);
+                direccionRepository.saveAll(direccion);
             }
         } catch (Exception e) {
             log.error("Error al registrar usuario", e);
