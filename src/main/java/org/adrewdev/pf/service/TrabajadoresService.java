@@ -26,31 +26,18 @@ public class TrabajadoresService {
     private final TrabajadorNoDocenteRepository trabajadorNoDocenteRepository;
 
     public List<TrabajadorRequest> getAllTrabajadoresSortAlfabeticamente() {
-        return trabajadorRepository.findAll().stream()
-                .peek(t -> {
-                    var direcciones = direccionRepository.findByTrabajador_id(t.getId());
-                    t.setDirecciones(direcciones);
-                })
-                .map(t -> {
-                    var direc = t.getDirecciones().stream()
-                            .map(d -> new ModelMapper().map(d, DireccionRequest.class))
-                            .toList();
-                    return new TrabajadorRequest(t.getNombre(), t.getCarneIdentidad(), direc);
+        return trabajadorRepository.findAll().stream().map(t -> {
+                    var direcciones = getDirecciones(t.getId());
+                    return new TrabajadorRequest(t.getNombre(), t.getCarneIdentidad(), direcciones);
                 })
                 .toList();
     }
 
     public List<TrabajadorDocenteRequest> getAllTrabajadoresDocentes() {
         return trabajadorDocenteRepository.findAll().stream()
-                .peek(t -> {
-                    var direcciones = direccionRepository.findByTrabajador_id(t.getId());
-                    t.setDirecciones(direcciones);
-                })
                 .map(t -> {
-                    var direc = t.getDirecciones().stream()
-                            .map(d -> new ModelMapper().map(d, DireccionRequest.class))
-                            .toList();
-                    return new TrabajadorDocenteRequest(t.getNombre(), t.getCarneIdentidad(), direc,
+                    var direcciones = getDirecciones(t.getId());
+                    return new TrabajadorDocenteRequest(t.getNombre(), t.getCarneIdentidad(), direcciones,
                             t.getCategoriaDocente(), t.getCategoriaCientifica());
                 })
                 .toList();
@@ -58,14 +45,8 @@ public class TrabajadoresService {
 
     public List<TrabajadorNoDocenteRequest> getAllTrabajadoresNoDocentes() {
         return trabajadorNoDocenteRepository.findAll().stream()
-                .peek(t -> {
-                    var direcciones = direccionRepository.findByTrabajador_id(t.getId());
-                    t.setDirecciones(direcciones);
-                })
                 .map(t -> {
-                    var direc = t.getDirecciones().stream()
-                            .map(d -> new ModelMapper().map(d, DireccionRequest.class))
-                            .toList();
+                    var direc = getDirecciones(t.getId());
                     return new TrabajadorNoDocenteRequest(t.getNombre(), t.getCarneIdentidad(), direc,
                             t.getNivelEscolaridad(), t.getOcupacion());
                 })
@@ -78,5 +59,11 @@ public class TrabajadoresService {
         } catch (Exception e) {
             throw new RuntimeException("Error al eliminar trabajador; id: " + id);
         }
+    }
+
+    private List<DireccionRequest> getDirecciones(Long trabajadorId) {
+        return direccionRepository.findByTrabajador_id(trabajadorId).stream()
+                .map(d -> new ModelMapper().map(d, DireccionRequest.class))
+                .toList();
     }
 }
