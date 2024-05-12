@@ -22,4 +22,11 @@ public class Direccion {
     @ManyToOne
     @JoinColumn(name = "trabajador_id")
     private Trabajador trabajador;
+
+    public Direccion(String provincia, String municipio, String calle, String numero) {
+        this.provincia = provincia;
+        this.municipio = municipio;
+        this.calle = calle;
+        this.numero = numero;
+    }
 }

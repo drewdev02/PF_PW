@@ -28,4 +28,15 @@ public class TrabajadorNoDocente extends Trabajador {
         this.nivelEscolaridad = nivelEscolaridad;
         this.ocupacion = ocupacion;
     }
+
+    public TrabajadorNoDocente(
+            String nombre,
+            String carneIdentidad,
+            String nivelEscolaridad,
+            String ocupacion
+    ) {
+        super(nombre, carneIdentidad);
+        this.nivelEscolaridad = nivelEscolaridad;
+        this.ocupacion = ocupacion;
+    }
 }

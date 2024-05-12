@@ -34,8 +34,7 @@ public class TrabajadoresService {
     }
 
     public List<TrabajadorDocenteRequest> getAllTrabajadoresDocentes() {
-        return trabajadorDocenteRepository.findAll().stream()
-                .map(t -> {
+        return trabajadorDocenteRepository.findAll().stream().map(t -> {
                     var direcciones = getDirecciones(t.getId());
                     return new TrabajadorDocenteRequest(t.getNombre(), t.getCarneIdentidad(), direcciones,
                             t.getCategoriaDocente(), t.getCategoriaCientifica());
@@ -44,8 +43,7 @@ public class TrabajadoresService {
     }
 
     public List<TrabajadorNoDocenteRequest> getAllTrabajadoresNoDocentes() {
-        return trabajadorNoDocenteRepository.findAll().stream()
-                .map(t -> {
+        return trabajadorNoDocenteRepository.findAll().stream().map(t -> {
                     var direc = getDirecciones(t.getId());
                     return new TrabajadorNoDocenteRequest(t.getNombre(), t.getCarneIdentidad(), direc,
                             t.getNivelEscolaridad(), t.getOcupacion());

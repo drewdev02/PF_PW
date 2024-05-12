@@ -21,5 +21,9 @@ public class Trabajador {
     private String nombre;
     private String carneIdentidad;
     @OneToMany(mappedBy = "trabajador", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Direccion> direcciones;;
+    private List<Direccion> direcciones;
+    public Trabajador(String nombre , String carneIdentidad){
+        this.nombre = nombre;
+        this.carneIdentidad = carneIdentidad;
+    }
 }

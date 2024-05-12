@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString(callSuper = true)
 public class TrabajadorDocente extends Trabajador {
     private String categoriaDocente;
     private String categoriaCientifica;
@@ -27,5 +27,10 @@ public class TrabajadorDocente extends Trabajador {
         super(id, nombre, carneIdentidad, direccion);
         this.categoriaCientifica = categoriaCientifica;
         this.categoriaDocente = categoriaDocente;
+    }
+    public TrabajadorDocente(String nombre, String carneIdentidad, String categoriaDocente, String categoriaCientifica) {
+        super(nombre, carneIdentidad);
+        this.categoriaDocente = categoriaDocente;
+        this.categoriaCientifica = categoriaCientifica;
     }
 }
