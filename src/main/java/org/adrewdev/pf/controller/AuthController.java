@@ -19,6 +19,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
+        log.info("Autenticando usuario: {}", loginRequest);
         try {
             authService.authenticateUser(loginRequest);
             return ResponseEntity.ok("Inicio de sesión exitoso");
@@ -42,6 +43,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody TrabajadorRequest request) {
+        log.info("Registrando usuario: {}", request);
         try {
             authService.registerUser(request);
             return ResponseEntity.ok(request);

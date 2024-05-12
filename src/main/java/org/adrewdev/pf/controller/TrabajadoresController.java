@@ -16,6 +16,7 @@ public class TrabajadoresController {
 
     @GetMapping
     public ResponseEntity<?> getAllTrabajadores() {
+        log.info("Obteniendo trabajadores");
         try {
             var list = trabajadoresService.getAllTrabajadoresSortAlfabeticamente();
             return ResponseEntity.ok(list);
@@ -27,6 +28,7 @@ public class TrabajadoresController {
 
     @GetMapping("/docentes")
     public ResponseEntity<?> getAllTrabajadoresDocentes() {
+        log.info("Obteniendo trabajadores docentes");
         try {
             var list = trabajadoresService.getAllTrabajadoresDocentes();
             return ResponseEntity.ok(list);
@@ -38,6 +40,7 @@ public class TrabajadoresController {
 
     @GetMapping("/nodocentes")
     public ResponseEntity<?> getAllTrabajadoresNoDocentes() {
+        log.info("Obteniendo trabajadores no docentes");
         try {
             var list = trabajadoresService.getAllTrabajadoresNoDocentes();
             return ResponseEntity.ok(list);
@@ -49,6 +52,7 @@ public class TrabajadoresController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteTrabajador(@PathVariable Long id) {
+        log.info("Eliminando trabajador con id: {}", id);
         try {
             trabajadoresService.deleteTrabajador(id);
             return ResponseEntity.ok().build();
