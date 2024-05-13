@@ -1,10 +1,12 @@
 package org.adrewdev.pf.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.adrewdev.pf.model.LoginRequest;
 import org.adrewdev.pf.model.TrabajadorRequest;
 import org.adrewdev.pf.service.AuthService;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,14 +20,14 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(@RequestBody @Valid LoginRequest loginRequest) {
         log.info("Autenticando usuario: {}", loginRequest);
         try {
             authService.authenticateUser(loginRequest);
             return ResponseEntity.ok("Inicio de sesión exitoso");
         } catch (Exception e) {
             log.error("Error al autenticar usuario: {}", e);
-            return ResponseEntity.badRequest().build();
+            return new ResponseEntity<>(e.getMessage(), HttpStatusCode.valueOf(400));
         }
     }
 

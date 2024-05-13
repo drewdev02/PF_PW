@@ -2,6 +2,7 @@ package org.adrewdev.pf.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.adrewdev.pf.entity.Trabajador;
 import org.adrewdev.pf.model.DireccionRequest;
 import org.adrewdev.pf.model.TrabajadorDocenteRequest;
 import org.adrewdev.pf.model.TrabajadorNoDocenteRequest;

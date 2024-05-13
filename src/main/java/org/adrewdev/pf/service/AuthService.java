@@ -38,30 +38,21 @@ public class AuthService {
 
             if (request instanceof TrabajadorDocenteRequest) {
                 var entity = Mapper.map((TrabajadorDocenteRequest) request);
-                var direcciones = direccion.stream().map(d -> {
-                    d.setTrabajador(entity);
-                    return d;
-                }).toList();
+                var direcciones = direccion.stream().peek(d -> d.setTrabajador(entity)).toList();
                 entity.setDirecciones(direcciones);
                 trabajadorDocenteRepository.save(entity);
                 direccionRepository.saveAll(direccion);
 
             } else if (request instanceof TrabajadorNoDocenteRequest) {
                 var entity = Mapper.map((TrabajadorNoDocenteRequest) request);
-                var direcciones = direccion.stream().map(d -> {
-                    d.setTrabajador(entity);
-                    return d;
-                }).toList();
+                var direcciones = direccion.stream().peek(d -> d.setTrabajador(entity)).toList();
                 entity.setDirecciones(direcciones);
                 trabajadorNoDocenteRepository.save(entity);
                 direccionRepository.saveAll(direccion);
 
             } else {
                 var entity = Mapper.map(request);
-                var direcciones = direccion.stream().map(d -> {
-                    d.setTrabajador(entity);
-                    return d;
-                }).toList();
+                var direcciones = direccion.stream().peek(d -> d.setTrabajador(entity)).toList();
                 entity.setDirecciones(direcciones);
                 trabajadorRepository.save(entity);
                 direccionRepository.saveAll(direccion);

@@ -90,6 +90,5 @@ public class GenerateData implements Runnable {
             log.error("Error al registrar usuario", e);
             throw new RuntimeException(e);
         }
-
     }
 }
